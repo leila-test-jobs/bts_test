@@ -1,5 +1,6 @@
 package com.example.bitcointest.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +39,11 @@ class MainViewModel: ViewModel() {
         onNetwork.value = network
     }
 
-    fun onClickFinished(){
-        onNetwork.value = null
+    fun setVisibility(network: Network): Int{
+        return if (network.is_selected){
+            View.VISIBLE
+        } else {
+            View.INVISIBLE
+        }
     }
 }

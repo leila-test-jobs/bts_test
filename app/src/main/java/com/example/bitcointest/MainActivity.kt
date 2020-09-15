@@ -128,9 +128,7 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
             ViewModelProvider.AndroidViewModelFactory(application).create(MainViewModel::class.java)
     }
 
-    override fun onItemClick(position: Int, network: Network) {
-        //val view = adapter.getItemViewType(position)
-
+    override fun onItemClick(view: View, network: Network) {
         binding.desTxt.text = null
         binding.loader.visibility = View.VISIBLE
         viewModel.getDescription(network.has_tag).observe(this, Observer {

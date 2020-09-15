@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8545507585221613918",
-      "lastPropertyId": "5:5826793495636768660",
+      "lastPropertyId": "6:4867274401575079116",
       "name": "Network",
       "properties": [
         {
@@ -49,7 +49,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    4867274401575079116
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
