@@ -70,38 +70,38 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
                 }
 
 
-        })
-        setNeutralButton("بستن", DialogInterface.OnClickListener { dialog, which ->
-            dialog.dismiss()
-        })
-        setCancelable(false)
+            })
+            setNeutralButton("بستن", DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+            })
+            setCancelable(false)
+        }
+        alertDialogBuilder.show()
     }
-    alertDialogBuilder.show()
-}
 
-private fun initObservers() {
-    viewModel.getCurrency().observe(this, Observer { bts ->
-        binding.currency = bts
-        Glide.with(this).load("https://ramzinex.com/${bts.icon}").centerCrop()
-            .into(binding.currencyImg)
-    })
+    private fun initObservers() {
+        viewModel.getCurrency().observe(this, Observer { bts ->
+            binding.currency = bts
+            Glide.with(this).load("https://ramzinex.com/${bts.icon}").centerCrop()
+                .into(binding.currencyImg)
+        })
 
-    viewModel.getNetworkList().observe(this, Observer { networks ->
-        if (networks != null) {
-            adapter.submitList(networks)
-            binding.networkBtnRecycle.adapter = adapter
-            viewModel.saveInDatabase(networks)
-        }
-    })
+        viewModel.getNetworkList().observe(this, Observer { networks ->
+            if (networks != null) {
+                adapter.submitList(networks)
+                binding.networkBtnRecycle.adapter = adapter
+                viewModel.saveInDatabase(networks)
+            }
+        })
 
-    viewModel.getDescription(0).observe(this, Observer {
-        binding.loader.visibility = View.GONE
-        var str = ""
-        for (items in it) {
-            str += items.description + "\n"
-        }
-        binding.desTxt.text = str
-    })
+        viewModel.getDescription(0).observe(this, Observer {
+            binding.loader.visibility = View.GONE
+            var str = ""
+            for (items in it) {
+                str += items.description + "\n"
+            }
+            binding.desTxt.text = str
+        })
 
 //    viewModel.networkClickListener.observe(this, Observer { network ->
 //        if (network != null) {
@@ -120,13 +120,13 @@ private fun initObservers() {
 //            viewModel.onClickFinished()
 //        }
 //    })
-}
+    }
 
-private fun initViewModel() {
-    val application = requireNotNull(value = this).application
-    viewModel =
-        ViewModelProvider.AndroidViewModelFactory(application).create(MainViewModel::class.java)
-}
+    private fun initViewModel() {
+        val application = requireNotNull(value = this).application
+        viewModel =
+            ViewModelProvider.AndroidViewModelFactory(application).create(MainViewModel::class.java)
+    }
 
     override fun onItemClick(position: Int, network: Network) {
         //val view = adapter.getItemViewType(position)
