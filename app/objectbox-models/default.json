@@ -1,0 +1,55 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8545507585221613918",
+      "lastPropertyId": "5:5826793495636768660",
+      "name": "Network",
+      "properties": [
+        {
+          "id": "1:9022161869945249587",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2248139755487203389",
+          "name": "currency_id",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "3:5164316511799553647",
+          "name": "has_tag",
+          "type": 5,
+          "flags": 4
+        },
+        {
+          "id": "4:2899495902074650332",
+          "name": "show_name",
+          "type": 9
+        },
+        {
+          "id": "5:5826793495636768660",
+          "name": "withdraw_fee",
+          "type": 8,
+          "flags": 4
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:8545507585221613918",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
