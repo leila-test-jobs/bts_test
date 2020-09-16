@@ -16,6 +16,7 @@ import com.example.bitcointest.adapter.NetworkAdapter
 import com.example.bitcointest.databinding.ActivityMainBinding
 import com.example.bitcointest.model.Network
 import com.example.bitcointest.viewmodel.MainViewModel
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
         adapter = NetworkAdapter(viewModel, this)
         val list = viewModel.getFromDatabase()
         if (list != null) {
+            list[0].is_selected = true
             adapter.submitList(list)
             binding.networkBtnRecycle.adapter = adapter
         }
@@ -45,38 +47,52 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
     }
 
     private fun sendToCafeBazaar() {
-        val alertDialogBuilder = AlertDialog.Builder(this).apply {
-            setTitle("دادن نظر در کافه بازار")
-            setMessage("لطفا در بازار به ما ستاره بدهید یا با نظرات خود به ما در توسعه نرم افزار کمک کنید.")
-            setPositiveButton("دادن ستاره", DialogInterface.OnClickListener { dialog, which ->
-                val intent = Intent(Intent.ACTION_EDIT)
-                intent.data = Uri.parse("bazaar://details?id=$PACKAGE_NAME")
-                intent.setPackage(BAZZAR_PACKAGE_NAME)
+        val prefs = Prefs(this)
+        var numOfDays: Int = 0
 
-                val checkForInstall = try {
-                    packageManager.getPackageInfo(BAZZAR_PACKAGE_NAME, 0)
-                    true
-                } catch (e: PackageManager.NameNotFoundException) {
-                    false
-                }
-
-                if (checkForInstall) {
-                    //app is installed, do smth
-                    startActivity(intent)
-                } else {
-                    val webpage: Uri = Uri.parse("https://cafebazaar.ir/app/com.ramzinex.ramzinex")
-                    val i = Intent(Intent.ACTION_VIEW, webpage)
-                    startActivity(i)
-                }
-
-
-            })
-            setNeutralButton("بستن", DialogInterface.OnClickListener { dialog, which ->
-                dialog.dismiss()
-            })
-            setCancelable(false)
+        if (prefs.date != 0L) {
+            val today = Date()
+            val diff: Long = today.time - prefs.date
+            numOfDays = (diff / (1000 * 60 * 60 * 24)).toInt()
         }
-        alertDialogBuilder.show()
+
+        if (prefs.date == 0L || numOfDays>=1) {
+            val alertDialogBuilder = AlertDialog.Builder(this).apply {
+                setTitle("دادن نظر در کافه بازار")
+                setMessage("با نظرات خود به ما در توسعه نرم افزار کمک کنید.")
+                setPositiveButton("نظر دادن", DialogInterface.OnClickListener { dialog, which ->
+                    val intent = Intent(Intent.ACTION_EDIT)
+                    intent.data = Uri.parse("bazaar://details?id=$PACKAGE_NAME")
+                    intent.setPackage(BAZZAR_PACKAGE_NAME)
+
+                    val checkForInstall = try {
+                        packageManager.getPackageInfo(BAZZAR_PACKAGE_NAME, 0)
+                        true
+                    } catch (e: PackageManager.NameNotFoundException) {
+                        false
+                    }
+
+                    if (checkForInstall) {
+                        //app is installed, do smth
+                        startActivity(intent)
+                    } else {
+                        val webpage: Uri =
+                            Uri.parse("https://cafebazaar.ir/app/com.ramzinex.ramzinex")
+                        val i = Intent(Intent.ACTION_VIEW, webpage)
+                        startActivity(i)
+                    }
+
+
+                })
+                setNeutralButton("بعدا", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                setCancelable(false)
+            }
+            alertDialogBuilder.show()
+
+            prefs.date = Calendar.getInstance().timeInMillis
+        }
     }
 
     private fun initObservers() {
@@ -88,6 +104,7 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
 
         viewModel.getNetworkList().observe(this, Observer { networks ->
             if (networks != null) {
+                networks[0].is_selected = true
                 adapter.submitList(networks)
                 binding.networkBtnRecycle.adapter = adapter
                 viewModel.saveInDatabase(networks)
@@ -102,24 +119,6 @@ class MainActivity : AppCompatActivity(), NetworkAdapter.OnItemClickListener {
             }
             binding.desTxt.text = str
         })
-
-//    viewModel.networkClickListener.observe(this, Observer { network ->
-//        if (network != null) {
-//            //adapter.changeColor()
-//            //progress bar
-//            binding.desTxt.text = null
-//            binding.loader.visibility = View.VISIBLE
-//            viewModel.getDescription(network.has_tag).observe(this, Observer {
-//                binding.loader.visibility = View.GONE
-//                var str = ""
-//                for (items in it) {
-//                    str += items.description + "\n"
-//                }
-//                binding.desTxt.text = str
-//            })
-//            viewModel.onClickFinished()
-//        }
-//    })
     }
 
     private fun initViewModel() {

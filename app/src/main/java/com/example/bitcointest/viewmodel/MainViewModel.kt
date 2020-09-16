@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.bitcointest.R
 import com.example.bitcointest.database.DatabaseRepository
 import com.example.bitcointest.model.CurrencyData
 import com.example.bitcointest.model.DescriptionData
@@ -46,4 +47,21 @@ class MainViewModel: ViewModel() {
             View.INVISIBLE
         }
     }
+
+//    fun changeDrawable(network: Network): Int {
+////        view.setBackgroundColor(R.drawable.)
+//        return if (network.is_selected){
+//            R.drawable.btn_drawable
+//        } else {
+//            R.drawable.not_selected_btn
+//        }
+//    }
+//
+//    fun changeTextColor(network: Network): Int {
+//        return if (!network.is_selected){
+//            R.color.black
+//        } else {
+//            R.color.colorAccent
+//        }
+//    }
 }

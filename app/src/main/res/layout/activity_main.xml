@@ -33,7 +33,7 @@
         android:layout_marginLeft="8dp"
         android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:text="@{currency.symbol}"
+        android:text="@{currency.symbol.toUpperCase()}"
         tools:text="BIT COIN"/>
 
     <TextView

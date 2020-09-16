@@ -43,12 +43,6 @@ class NetworkAdapter(private val viewModel: MainViewModel, private val listener:
                 this@NetworkAdapter.currentList[adapterPosition].is_selected = true
                 notifyDataSetChanged()
 
-                for (item in this@NetworkAdapter.currentList){
-                    if (item.is_selected) {
-                        break
-                    }
-                }
-
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onItemClick(it, network)
                 }

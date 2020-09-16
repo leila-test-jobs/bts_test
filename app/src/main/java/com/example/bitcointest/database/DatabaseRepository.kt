@@ -7,6 +7,16 @@ object DatabaseRepository {
     private val networkBox: Box<Network> = ObjectBox.boxStore.boxFor(Network::class.java)
 
     fun putNetwork(list: List<Network>){
+//        val all = getAllNetwork()
+//        var hasItem = false
+//        if (networkBox.all.isEmpty()){
+//            networkBox.put(list)
+//            return
+//        } else {
+//            for (item in list){
+//                if (all?.contains(it))
+//            }
+//        }
         networkBox.removeAll()
         networkBox.put(list)
     }
