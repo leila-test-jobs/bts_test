@@ -79,4 +79,22 @@ object FetchItems {
         })
         return incomeData
     }
+
+    fun checkConnection(): MutableLiveData<Int>{
+        val call = mApiService.checkInternet()
+        val incomeData = MutableLiveData<Int>()
+
+        call.enqueue(object : Callback<About>{
+            override fun onFailure(call: Call<About>?, t: Throwable?) {
+                Log.e("About Fetch", t.toString())
+                incomeData.value = 0
+            }
+
+            override fun onResponse(call: Call<About>?, response: Response<About>?) {
+                incomeData.value = response?.code()
+            }
+        })
+
+        return incomeData
+    }
 }

@@ -44,7 +44,7 @@ class NetworkAdapter(private val viewModel: MainViewModel, private val listener:
                 notifyDataSetChanged()
 
                 if (position != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(it, network)
+                    listener.onItemClick(it, network, position)
                 }
 
             }
@@ -52,7 +52,7 @@ class NetworkAdapter(private val viewModel: MainViewModel, private val listener:
     }
 
     interface OnItemClickListener{
-        fun onItemClick(view: View, network: Network)
+        fun onItemClick(view: View, network: Network, position: Int)
     }
 
 }

@@ -13,12 +13,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/tool"/>
+
     <ImageView
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:id="@+id/currency_img"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool"
         android:layout_margin="8dp"
         tools:src="@android:mipmap/sym_def_app_icon"
         />

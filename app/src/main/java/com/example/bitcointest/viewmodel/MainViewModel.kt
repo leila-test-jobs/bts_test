@@ -12,9 +12,6 @@ import com.example.bitcointest.model.Network
 import com.example.bitcointest.network.FetchItems
 
 class MainViewModel: ViewModel() {
-    private val onNetwork = MutableLiveData<Network>()
-    val networkClickListener: LiveData<Network>
-        get() = onNetwork
 
     fun getFromDatabase(): MutableList<Network>? {
         return DatabaseRepository.getAllNetwork()
@@ -36,16 +33,16 @@ class MainViewModel: ViewModel() {
         return FetchItems.getDescription(tag)
     }
 
-    fun onItemClick(network: Network){
-        onNetwork.value = network
-    }
-
     fun setVisibility(network: Network): Int{
         return if (network.is_selected){
             View.VISIBLE
         } else {
             View.INVISIBLE
         }
+    }
+
+    fun checkConnection(): LiveData<Int>{
+        return FetchItems.checkConnection()
     }
 
 //    fun changeDrawable(network: Network): Int {

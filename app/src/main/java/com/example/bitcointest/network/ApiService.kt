@@ -1,5 +1,6 @@
 package com.example.bitcointest.network
 
+import com.example.bitcointest.model.About
 import com.example.bitcointest.model.Currency
 import com.example.bitcointest.model.Data
 import com.example.bitcointest.model.Description
@@ -16,4 +17,7 @@ interface ApiService {
 
     @GET("tips")
     fun getNetworkDescription(@QueryMap map: Map<String, Int>): Call<Description>
+
+    @GET("about")
+    fun checkInternet(): Call<About>
 }
